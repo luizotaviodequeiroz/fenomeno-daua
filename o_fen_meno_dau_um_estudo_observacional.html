@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dauã: O Estudioso Independente — Um Ensaio Observacional</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        editorial: {
+                            bg: '#FBFBF8',
+                            surface: '#F3EFE6',
+                            card: '#FAF6EE',
+                            border: '#E2DACD',
+                            text: '#18181B',
+                            muted: '#52525B',
+                            accent: '#7A1C1C',
+                            accentHover: '#5B1313'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Cormorant Garamond', 'Georgia', 'serif'],
+                        garamond: ['Cormorant Garamond', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilização customizada para estética editorial */
+        body {
+            background-color: #FBFBF8;
+            color: #18181B;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .font-editorial-quote {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Efeito de marca d'água de textura de jornal/papel fino */
+        .paper-texture {
+            background-image: radial-gradient(#18181b 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.03;
+        }
+
+        /* Custom Scrollbar elegante */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FBFBF8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D3CBBF;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7A1C1C;
+        }
+
+        /* Modal Blur */
+        .modal-backdrop {
+            background-color: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col selection:bg-editorial-accent selection:text-white">
+
+    <!-- Textura de fundo sutil -->
+    <div class="fixed inset-0 paper-texture pointer-events-none z-0"></div>
+
+    <!-- HEADER / NAVEGAÇÃO -->
+    <header class="sticky top-0 z-40 bg-editorial-bg/90 backdrop-blur-md border-b border-editorial-border transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <span class="w-8 h-8 rounded-full bg-editorial-accent text-white flex items-center justify-center font-serif text-sm font-bold group-hover:scale-105 transition-transform">D</span>
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold tracking-wider text-sm uppercase text-editorial-text">D. LABS</span>
+                    <span class="text-[10px] tracking-widest text-editorial-muted uppercase font-sans">Instituto de Observação</span>
+                </div>
+            </a>
+
+            <!-- Menu Desktop -->
+            <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest text-editorial-muted font-medium">
+                <a href="#quem-e" class="hover:text-editorial-accent transition-colors">Perfil</a>
+                <a href="#paradoxo" class="hover:text-editorial-accent transition-colors">O Paradoxo</a>
+                <a href="#indicadores" class="hover:text-editorial-accent transition-colors">Indicadores</a>
+                <a href="#trajetoria" class="hover:text-editorial-accent transition-colors">Trajetória</a>
+            </nav>
+
+            <a href="#analisador" onclick="abrirModalParadoxo()" class="hidden sm:inline-flex items-center px-4 py-2 border border-editorial-accent text-editorial-accent hover:bg-editorial-accent hover:text-white transition-all text-xs uppercase tracking-wider font-semibold rounded-sm shadow-sm">
+                Analisar Paradoxo
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow z-10">
+
+        <!-- SEÇÃO HERO -->
+        <section class="py-20 md:py-32 border-b border-editorial-border relative">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                
+                <div class="inline-block mb-6 px-3 py-1 bg-editorial-surface border border-editorial-border rounded-full text-xs text-editorial-accent font-semibold tracking-widest uppercase">
+                    Documento de Pesquisa Vol. I — N.º 2026
+                </div>
+
+                <h1 class="font-serif-title text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-editorial-text leading-[1.15] mb-8">
+                    “Dauã: <span class="italic font-normal text-editorial-accent">não é lulista.</span><br class="hidden sm:inline"/> Apenas acompanha os acontecimentos.”
+                </h1>
+
+                <p class="font-editorial-quote text-xl sm:text-2xl text-editorial-muted max-w-2xl mx-auto leading-relaxed mb-10 italic">
+                    Um ensaio observacional sobre a frequência estatisticamente intrigante de comentários, postagens e análises conjunturais na rotina universitária.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button onclick="abrirModalParadoxo()" class="w-full sm:w-auto px-8 py-4 bg-editorial-accent hover:bg-editorial-accentHover text-white font-medium text-sm tracking-wider uppercase transition-all shadow-md hover:shadow-lg rounded-sm">
+                        Analisar o Paradoxo
+                    </button>
+                    <a href="#quem-e" class="w-full sm:w-auto px-8 py-4 border border-editorial-border bg-editorial-surface hover:bg-editorial-border text-editorial-text font-medium text-sm tracking-wider uppercase transition-all rounded-sm text-center">
+                        Ler o Perfil
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEÇÃO: QUEM É DAUÃ? -->
+        <section id="quem-e" class="py-20 border-b border-editorial-border bg-editorial-surface/40">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="md:col-span-4">
+                        <div class="p-8 border border-editorial-border bg-editorial-card rounded-sm text-center relative shadow-sm">
+                            <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-editorial-surface border border-editorial-border flex items-center justify-center text-editorial-accent font-serif text-3xl font-bold">
+                                D
+                            </div>
+                            <h3 class="font-serif-title text-2xl font-bold text-editorial-text">Dauã</h3>
+                            <p class="text-xs uppercase tracking-widest text-editorial-muted mt-1 mb-4">Analista Conjuntural Autodeclarado</p>
+                            <div class="w-12 h-px bg-editorial-accent mx-auto mb-4"></div>
+                            <p class="text-xs text-editorial-muted italic font-serif">
+                                “A imparcialidade do observador é diretamente proporcional à quantidade de stories sobre o governo.”
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-8 space-y-6 text-editorial-text leading-relaxed">
+                        <div class="flex items-center gap-2 text-xs uppercase tracking-widest text-editorial-accent font-bold">
+                            <span>/// 01</span>
+                            <span>Perfil Biográfico</span>
+                        </div>
+                        <h2 class="font-serif-title text-3xl sm:text-4xl font-bold tracking-tight">
+                            Quem é Dauã?
+                        </h2>
+                        <p class="text-base text-editorial-muted">
+                            Dauã é um acadêmico e observador da vida social que se destaca por sua incomparável disciplina de monitoramento dos atos do Poder Executivo Federal. Munido de um smartphone e uma dedicação quase científica, ele dedica parcela significativa do seu cotidiano a registrar, comentar, repostar e analisar cada desdobramento político do país.
+                        </p>
+                        <p class="text-base text-editorial-muted">
+                            Apesar do volume de conteúdos republicados equivaler ao de uma agência oficial de notícias, Dauã sustenta categoricamente uma tese fundamental: <strong>ele não possui qualquer filiação ideológica ou preferência partidária</strong>. Para o próprio, trata-se unicamente de um compromisso puramente intelectual de "acompanhar o debate".
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: O GRANDE PARADOXO -->
+        <section id="paradoxo" class="py-20 border-b border-editorial-border">
+            <div class="max-w-5xl mx-auto px-6">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div class="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-editorial-accent font-bold mb-3">
+                        <span>/// 02</span>
+                        <span>Investigação Empírica</span>
+                    </div>
+                    <h2 class="font-serif-title text-3xl sm:text-5xl font-bold tracking-tight mb-6">
+                        O Grande Paradoxo
+                    </h2>
+                    <p class="text-editorial-muted font-serif text-lg italic">
+                        O atrito epistemológico entre a autodeclaração de neutralidade e a produção diária de conteúdo político.
+                    </p>
+                </div>
+
+                <!-- Comparativo Lado a Lado -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Hipótese A -->
+                    <div class="p-8 border border-editorial-border bg-editorial-card rounded-sm relative">
+                        <span class="absolute top-4 right-4 text-xs font-mono text-editorial-muted uppercase">Tese A</span>
+                        <h3 class="font-serif-title text-2xl font-bold text-editorial-text mb-4">A Declaração Verbal</h3>
+                        <div class="p-4 bg-editorial-surface border-l-2 border-editorial-accent text-editorial-muted font-serif italic text-lg mb-4">
+                            “Eu nem sou lulista, cara. Só acho interessante acompanhar.”
+                        </div>
+                        <p class="text-sm text-editorial-muted leading-relaxed">
+                            Afirmação verbal recorrente emitida em conversas informais, intervalos de aula e debates no grupo da faculdade. Caracteriza-se por um tom sereno de total desapego partidário.
+                        </p>
+                    </div>
+
+                    <!-- Evidência B -->
+                    <div class="p-8 border border-editorial-accent/30 bg-editorial-surface/60 rounded-sm relative">
+                        <span class="absolute top-4 right-4 text-xs font-mono text-editorial-accent uppercase font-bold">Evidência Empírica</span>
+                        <h3 class="font-serif-title text-2xl font-bold text-editorial-accent mb-4">O Volume de Dados</h3>
+                        <div class="p-4 bg-editorial-bg border-l-2 border-editorial-text text-editorial-text font-mono text-sm mb-4">
+                            Média estimada: ~365 postagens/ano referentes a atividades do governo.
+                        </div>
+                        <p class="text-sm text-editorial-muted leading-relaxed">
+                            Registro diário contínuo de matérias, discursos, vídeos em corte e memes institucionais. Uma cadência de publicação comparável apenas aos veículos de comunicação oficiais.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEÇÃO: INDICADORES DE INTERESSE POLÍTICO -->
+        <section id="indicadores" class="py-20 border-b border-editorial-border bg-editorial-surface/30">
+            <div class="max-w-5xl mx-auto px-6">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                    <div>
+                        <div class="flex items-center gap-2 text-xs uppercase tracking-widest text-editorial-accent font-bold mb-3">
+                            <span>/// 03</span>
+                            <span>Métricas Observacionais</span>
+                        </div>
+                        <h2 class="font-serif-title text-3xl sm:text-4xl font-bold tracking-tight">
+                            Indicadores de Interesse Político
+                        </h2>
+                    </div>
+                    <p class="text-xs font-mono text-editorial-muted mt-4 md:mt-0 uppercase">
+                        *Dados fictícios baseados em observação amadora de corredor.
+                    </p>
+                </div>
+
+                <!-- Cards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="p-6 border border-editorial-border bg-editorial-card rounded-sm hover:border-editorial-accent transition-all hover:-translate-y-1 group">
+                        <div class="text-xs uppercase tracking-wider text-editorial-muted font-mono mb-2">Frequência</div>
+                        <div class="font-serif-title text-2xl font-bold text-editorial-accent mb-3 group-hover:scale-105 transition-transform">Diária</div>
+                        <h4 class="font-bold text-sm text-editorial-text mb-2">Menções Políticas</h4>
+                        <p class="text-xs text-editorial-muted leading-relaxed">
+                            Aparentemente ininterrupta, independente do dia da semana ou feriados nacionais.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="p-6 border border-editorial-border bg-editorial-card rounded-sm hover:border-editorial-accent transition-all hover:-translate-y-1 group">
+                        <div class="text-xs uppercase tracking-wider text-editorial-muted font-mono mb-2">Velocidade</div>
+                        <div class="font-serif-title text-2xl font-bold text-editorial-accent mb-3 group-hover:scale-105 transition-transform">&lt; 3 minutos</div>
+                        <h4 class="font-bold text-sm text-editorial-text mb-2">Início de Assunto</h4>
+                        <p class="text-xs text-editorial-muted leading-relaxed">
+                            Capacidade testada de redirecionar qualquer conversa casual para o cenário político.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="p-6 border border-editorial-border bg-editorial-card rounded-sm hover:border-editorial-accent transition-all hover:-translate-y-1 group">
+                        <div class="text-xs uppercase tracking-wider text-editorial-muted font-mono mb-2">Distância</div>
+                        <div class="font-serif-title text-2xl font-bold text-editorial-accent mb-3 group-hover:scale-105 transition-transform">Em Estudo</div>
+                        <h4 class="font-bold text-sm text-editorial-text mb-2">Discurso vs. Atos</h4>
+                        <p class="text-xs text-editorial-muted leading-relaxed">
+                            A lacuna entre o "não me importo" e o botão de repostar é objeto de pesquisa científica.
+                        </p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="p-6 border border-editorial-border bg-editorial-card rounded-sm hover:border-editorial-accent transition-all hover:-translate-y-1 group">
+                        <div class="text-xs uppercase tracking-wider text-editorial-muted font-mono mb-2">Probabilidade</div>
+                        <div class="font-serif-title text-2xl font-bold text-editorial-accent mb-3 group-hover:scale-105 transition-transform">99.9%</div>
+                        <h4 class="font-bold text-sm text-editorial-text mb-2">Nova Postagem Hoje</h4>
+                        <p class="text-xs text-editorial-muted leading-relaxed">
+                            Cálculo estocástico aponta alta probabilidade de nova publicação nas próximas horas.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEÇÃO: TRAJETÓRIA INTELECTUAL -->
+        <section id="trajetoria" class="py-20 border-b border-editorial-border">
+            <div class="max-w-4xl mx-auto px-6">
+                
+                <div class="text-center mb-16">
+                    <div class="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-editorial-accent font-bold mb-3">
+                        <span>/// 04</span>
+                        <span>Evolução Cronológica</span>
+                    </div>
+                    <h2 class="font-serif-title text-3xl sm:text-5xl font-bold tracking-tight mb-4">
+                        Trajetória Intelectual
+                    </h2>
+                    <p class="text-editorial-muted font-serif text-lg italic">
+                        Marcos históricos da transição de mero estudante a observador político em tempo integral.
+                    </p>
+                </div>
+
+                <!-- Timeline -->
+                <div class="relative border-l border-editorial-border ml-4 md:ml-32 space-y-12">
+                    
+                    <!-- Item 1 -->
+                    <div class="relative pl-8 group">
+                        <!-- Dot -->
+                        <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-editorial-accent group-hover:scale-150 transition-transform"></div>
+                        <!-- Year (Desktop Left, Mobile Top) -->
+                        <div class="md:absolute md:-left-32 md:top-0 text-xs font-mono font-bold text-editorial-accent uppercase mb-1 md:mb-0">Fase 1</div>
+                        <h3 class="font-serif-title text-xl font-bold text-editorial-text mb-2">O Despertar da Observação Neutral</h3>
+                        <p class="text-sm text-editorial-muted leading-relaxed">
+                            Dauã lê a primeira notícia política e declara aos amigos próximos que se trata apenas de uma consulta rápida de curiosidade geral.
+                        </p>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="relative pl-8 group">
+                        <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-editorial-accent group-hover:scale-150 transition-transform"></div>
+                        <div class="md:absolute md:-left-32 md:top-0 text-xs font-mono font-bold text-editorial-accent uppercase mb-1 md:mb-0">Fase 2</div>
+                        <h3 class="font-serif-title text-xl font-bold text-editorial-text mb-2">A Era dos Repostes Diários</h3>
+                        <p class="text-sm text-editorial-muted leading-relaxed">
+                            A frequência de postagens atinge ritmo industrial. Questionado por colegas, surge formalmente a icônica frase defensiva: <em>“Não sou lulista, só acompanho os fatos”</em>.
+                        </p>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="relative pl-8 group">
+                        <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-editorial-accent group-hover:scale-150 transition-transform"></div>
+                        <div class="md:absolute md:-left-32 md:top-0 text-xs font-mono font-bold text-editorial-accent uppercase mb-1 md:mb-0">Fase 3</div>
+                        <h3 class="font-serif-title text-xl font-bold text-editorial-text mb-2">Consolidação Metodológica</h3>
+                        <p class="text-sm text-editorial-muted leading-relaxed">
+                            Acompanhamento ininterrupto das pautas nacionais. Amigos passam a utilizá-lo como feed alternativo de notícias da política brasileira.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEÇÃO: CONCLUSÃO E GERADOR DO PARADOXO -->
+        <section class="py-20 bg-editorial-surface/60 text-center relative">
+            <div class="max-w-3xl mx-auto px-6">
+                
+                <h2 class="font-serif-title text-3xl sm:text-4xl font-bold mb-6">
+                    Conclusão dos Trabalhos
+                </h2>
+                
+                <p class="font-editorial-quote text-2xl text-editorial-text italic leading-relaxed mb-10">
+                    “Não se trata de preferência política. Trata-se, segundo o próprio pesquisador, de acompanhar os fatos.”
+                </p>
+
+                <button onclick="abrirModalParadoxo()" class="px-8 py-4 bg-editorial-accent hover:bg-editorial-accentHover text-white font-medium text-sm tracking-wider uppercase transition-all shadow-md rounded-sm">
+                    Executar Nova Análise do Paradoxo
+                </button>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER / RODAPÉ -->
+    <footer class="border-t border-editorial-border py-12 bg-editorial-bg z-10">
+        <div class="max-w-6xl mx-auto px-6 text-center space-y-4">
+            <p class="text-xs uppercase tracking-widest text-editorial-muted font-mono">
+                D. LABS — Instituto Independente de Estudos Universitários
+            </p>
+            <p class="text-xs text-editorial-muted italic font-serif">
+                “Estudo independente, metodologia duvidosa e conclusões estritamente humorísticas.”
+            </p>
+            <p class="text-[10px] text-editorial-muted/60 uppercase tracking-wider">
+                © 2026 — Criado com humor entre colegas de faculdade. Sem fins políticos reais.
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL / RECURSO INTERATIVO: GERADOR DE LAUDO -->
+    <div id="modalParadoxo" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-editorial-card border border-editorial-border p-8 max-w-lg w-full rounded-sm shadow-2xl relative transform scale-95 transition-transform duration-300" id="modalContainer">
+            
+            <button onclick="fecharModalParadoxo()" class="absolute top-4 right-4 text-editorial-muted hover:text-editorial-text text-xl font-mono">
+                ✕
+            </button>
+
+            <div class="flex items-center gap-2 text-xs uppercase tracking-widest text-editorial-accent font-bold mb-4">
+                <span>/// Laudo Científico Imparcial</span>
+            </div>
+
+            <h3 class="font-serif-title text-2xl font-bold text-editorial-text mb-4">
+                Análise de Paradoxo nº <span id="laudoNumero">042</span>
+            </h3>
+
+            <div class="p-6 bg-editorial-surface border border-editorial-border rounded-sm mb-6">
+                <p id="laudoTexto" class="font-editorial-quote text-xl text-editorial-text italic leading-relaxed">
+                    "Carregando dados..."
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="gerarNovoLaudo()" class="flex-1 px-4 py-3 bg-editorial-accent hover:bg-editorial-accentHover text-white text-xs font-semibold uppercase tracking-wider transition-all rounded-sm">
+                    Gerar Outro Laudo
+                </button>
+                <button onclick="fecharModalParadoxo()" class="px-4 py-3 border border-editorial-border text-editorial-text text-xs font-semibold uppercase tracking-wider hover:bg-editorial-surface transition-all rounded-sm">
+                    Fechar
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT EMbutido -->
+    <script>
+        // Banco de conclusões humorísticas aleatórias
+        const conclusoesParadoxo = [
+            "A análise conclui que a taxa de 'apenas acompanhamento' de Dauã excedeu todos os limites teóricos da imunidade ideológica.",
+            "Diagnóstico: Neutralidade nível extremo, porém acompanhada de 12 stories explicativos sobre o cenário governamental por dia.",
+            "Estudos empíricos indicam que a probabilidade de Dauã publicar um gráfico sobre o PIB nas próximas 2 horas é de 98,7%.",
+            "Conclusão laboratorial: Não há evidências formais de filiação partidária, apenas um fascínio desmedido pela rotina de Brasília.",
+            "O algoritmo detectou que 'não sou lulista' é a frase introdutória padrão de 100% das suas defesas teóricas.",
+            "Laudo final: O sujeito afirma acompanhar 'apenas os fatos', contudo acompanha os fatos com entusiasmo de parecerista oficial."
+        ];
+
+        // Função para abrir o Modal
+        function abrirModalParadoxo() {
+            const modal = document.getElementById('modalParadoxo');
+            const container = document.getElementById('modalContainer');
+            
+            gerarNovoLaudo();
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 10);
+        }
+
+        // Função para fechar o Modal
+        function fecharModalParadoxo() {
+            const modal = document.getElementById('modalParadoxo');
+            const container = document.getElementById('modalContainer');
+
+            modal.classList.add('opacity-0');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Função para gerar laudo aleatório
+        function gerarNovoLaudo() {
+            const index = Math.floor(Math.random() * conclusoesParadoxo.length);
+            const numeroLaudo = Math.floor(100 + Math.random() * 900);
+            
+            document.getElementById('laudoTexto').innerText = conclusoesParadoxo[index];
+            document.getElementById('laudoNumero').innerText = numeroLaudo;
+        }
+
+        // Fechar ao clicar fora do container
+        window.onclick = function(event) {
+            const modal = document.getElementById('modalParadoxo');
+            if (event.target === modal) {
+                fecharModalParadoxo();
+            }
+        }
+    </script>
+</body>
+</html>
